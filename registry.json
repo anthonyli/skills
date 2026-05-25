@@ -1,0 +1,28 @@
+{
+  "$schema": "./schemas/skill.schema.json",
+  "repository": {
+    "name": "anthonyli/skills",
+    "url": "https://github.com/anthonyli/skills",
+    "license": "MIT",
+    "defaultLocale": "zh-CN",
+    "locales": ["zh-CN", "en", "ja", "ko"]
+  },
+  "skills": [
+    {
+      "id": "example-skill",
+      "name": "Example Skill",
+      "path": "skills/example-skill",
+      "entry": "SKILL.md",
+      "metadata": "skill.json",
+      "summary": {
+        "zh-CN": "一个示例技能，用来展示仓库约定和多语言元数据。",
+        "en": "An example skill that demonstrates repository conventions and multilingual metadata.",
+        "ja": "リポジトリ規約と多言語メタデータを示すサンプルスキルです。",
+        "ko": "저장소 규칙과 다국어 메타데이터를 보여주는 예시 skill입니다."
+      },
+      "tags": ["template", "example"],
+      "platforms": ["claude", "codex", "cursor", "generic-agent"],
+      "status": "template"
+    }
+  ]
+}

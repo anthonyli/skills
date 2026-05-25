@@ -1,0 +1,6 @@
+{
+  "name": "Example Skill",
+  "summary": "An example skill that demonstrates repository conventions and multilingual metadata.",
+  "description": "This skill shows how SKILL.md, skill.json, and i18n copy work together so authors can publish skills that are easier for multiple platforms to understand.",
+  "keywords": ["example", "template", "multilingual"]
+}

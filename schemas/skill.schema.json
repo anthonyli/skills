@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/anthonyli/skills/schemas/skill.schema.json",
+  "title": "Agent Skills Registry",
+  "type": "object",
+  "required": ["repository", "skills"],
+  "properties": {
+    "repository": {
+      "type": "object",
+      "required": ["name", "url", "license", "defaultLocale", "locales"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "license": { "type": "string", "minLength": 1 },
+        "defaultLocale": { "$ref": "#/$defs/locale" },
+        "locales": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/locale" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "skills": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/registrySkill" },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "locale": {
+      "type": "string",
+      "enum": ["zh-CN", "en", "ja", "ko"]
+    },
+    "localizedText": {
+      "type": "object",
+      "required": ["zh-CN", "en", "ja", "ko"],
+      "properties": {
+        "zh-CN": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "ja": { "type": "string", "minLength": 1 },
+        "ko": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "registrySkill": {
+      "type": "object",
+      "required": ["id", "name", "path", "entry", "metadata", "summary", "tags", "platforms", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "pattern": "^skills/[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "entry": { "type": "string", "const": "SKILL.md" },
+        "metadata": { "type": "string", "const": "skill.json" },
+        "summary": { "$ref": "#/$defs/localizedText" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["claude", "codex", "cursor", "generic-agent"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "string",
+          "enum": ["template", "draft", "stable", "deprecated"]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "skill-template",
+  "name": "Skill Template",
+  "version": "0.1.0",
+  "status": "template",
+  "entry": "SKILL.md",
+  "license": "MIT",
+  "author": {
+    "name": "Anthony Li",
+    "url": "https://github.com/anthonyli"
+  },
+  "summary": {
+    "zh-CN": "替换为中文技能简介。",
+    "en": "Replace this with an English skill summary.",
+    "ja": "日本語のスキル概要に置き換えてください。",
+    "ko": "한국어 skill 요약으로 바꾸세요."
+  },
+  "tags": ["template"],
+  "platforms": ["claude", "codex", "cursor", "generic-agent"],
+  "compatibility": {
+    "requiresTools": [],
+    "requiresNetwork": false,
+    "requiresFilesystem": false
+  },
+  "i18n": {
+    "defaultLocale": "zh-CN",
+    "locales": ["zh-CN", "en", "ja", "ko"]
+  }
+}

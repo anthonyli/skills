@@ -61,10 +61,10 @@
 - Create: `templates/skill-template/skill.json`
 - Create: `templates/skill-template/README.md`
 - Create: `templates/skill-template/i18n/*.json`
-- Create: `skills/example-skill/SKILL.md`
-- Create: `skills/example-skill/skill.json`
-- Create: `skills/example-skill/README.md`
-- Create: `skills/example-skill/i18n/*.json`
+- Create: `skills/<skill-id>/SKILL.md`
+- Create: `skills/<skill-id>/skill.json`
+- Create: `skills/<skill-id>/README.md`
+- Create: `skills/<skill-id>/i18n/*.json`
 
 - [x] **Step 1: Add reusable skill template**
 

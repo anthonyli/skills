@@ -19,7 +19,7 @@ Claude-style skills usually rely on a `SKILL.md` file with YAML frontmatter:
 
 ```yaml
 ---
-name: example-skill
+name: my-skill
 description: Use this skill when...
 ---
 ```

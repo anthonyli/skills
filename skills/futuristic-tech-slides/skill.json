@@ -1,0 +1,29 @@
+{
+  "id": "futuristic-tech-slides",
+  "name": "Futuristic Tech Slides",
+  "version": "0.1.0",
+  "status": "stable",
+  "entry": "SKILL.md",
+  "license": "MIT",
+  "author": {
+    "name": "Anthony Li",
+    "url": "https://github.com/anthonyli"
+  },
+  "summary": {
+    "zh-CN": "生成具有未来科技感、霓虹动效、粒子背景和 3D 交互的高端 HTML 演示文稿。",
+    "en": "Generates high-end futuristic HTML presentations with neon effects, particles, 3D interactions, and rich animation.",
+    "ja": "ネオン演出、パーティクル背景、3D インタラクション、豊かなアニメーションを備えた未来的な HTML プレゼンテーションを生成します。",
+    "ko": "네온 효과, 파티클 배경, 3D 상호작용, 풍부한 애니메이션을 갖춘 미래형 HTML 프레젠테이션을 생성합니다."
+  },
+  "tags": ["slides", "html", "futuristic", "animation", "presentation"],
+  "platforms": ["claude", "codex", "cursor", "generic-agent"],
+  "compatibility": {
+    "requiresTools": [],
+    "requiresNetwork": false,
+    "requiresFilesystem": true
+  },
+  "i18n": {
+    "defaultLocale": "zh-CN",
+    "locales": ["zh-CN", "en", "ja", "ko"]
+  }
+}

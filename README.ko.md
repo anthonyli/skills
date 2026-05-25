@@ -27,7 +27,9 @@ AI Agent Skills를 공개하기 위한 범용 멀티 플랫폼 템플릿입니�
 ├── templates/
 │   └── skill-template/
 ├── skills/
-│   └── example-skill/
+│   ├── financial-risk-terms/
+│   ├── futuristic-tech-slides/
+│   └── scitech-tutorial-slides/
 └── docs/
     ├── publishing.md
     ├── platforms.md
@@ -57,6 +59,12 @@ AI Agent Skills를 공개하기 위한 범용 멀티 플랫폼 템플릿입니�
    ```
 
 4. GitHub에 commit / push 합니다.
+
+## 현재 Skills
+
+- `financial-risk-terms`: 금융 리스크 관리 용어, 모듈 경계, 지표/규칙/의사결정 관계, 프런트엔드 매핑.
+- `futuristic-tech-slides`: 미래형 고품질 HTML 프레젠테이션 생성.
+- `scitech-tutorial-slides`: 과학기술 튜토리얼용 독립 HTML 슬라이드 생성.
 
 ## License
 

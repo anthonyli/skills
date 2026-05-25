@@ -1,0 +1,5 @@
+interface:
+  display_name: "Scitech Tutorial Slides"
+  short_description: "Generate futuristic animated tutorial HTML slides."
+  icon: "🎬"
+  brand_color: "#7dd3fc"

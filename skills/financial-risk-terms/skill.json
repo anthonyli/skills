@@ -1,0 +1,29 @@
+{
+  "id": "financial-risk-terms",
+  "name": "Financial Risk Terms",
+  "version": "0.1.0",
+  "status": "stable",
+  "entry": "SKILL.md",
+  "license": "MIT",
+  "author": {
+    "name": "Anthony Li",
+    "url": "https://github.com/anthonyli"
+  },
+  "summary": {
+    "zh-CN": "解释金融风控系统中的决策、指标、规则、模型、名单、回测和前端模块映射。",
+    "en": "Explains decisioning, indicators, rules, models, lists, backtesting, and frontend module mapping in financial risk-control systems.",
+    "ja": "金融リスク管理システムにおける意思決定、指標、ルール、モデル、リスト、バックテスト、フロントエンドモジュール対応を説明します。",
+    "ko": "금융 리스크 관리 시스템의 의사결정, 지표, 규칙, 모델, 목록, 백테스트, 프런트엔드 모듈 매핑을 설명합니다."
+  },
+  "tags": ["finance", "risk-control", "anti-fraud", "decision-engine", "glossary"],
+  "platforms": ["claude", "codex", "cursor", "generic-agent"],
+  "compatibility": {
+    "requiresTools": [],
+    "requiresNetwork": false,
+    "requiresFilesystem": false
+  },
+  "i18n": {
+    "defaultLocale": "zh-CN",
+    "locales": ["zh-CN", "en", "ja", "ko"]
+  }
+}

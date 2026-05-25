@@ -27,7 +27,9 @@ Languages:
 ├── templates/
 │   └── skill-template/
 ├── skills/
-│   └── example-skill/
+│   ├── financial-risk-terms/
+│   ├── futuristic-tech-slides/
+│   └── scitech-tutorial-slides/
 └── docs/
     ├── publishing.md
     ├── platforms.md
@@ -57,6 +59,12 @@ Languages:
    ```
 
 4. Commit and push to GitHub.
+
+## Current Skills
+
+- `financial-risk-terms`: financial risk-control terminology, module boundaries, indicator/rule/decision relationships, and frontend mapping.
+- `futuristic-tech-slides`: high-end futuristic HTML presentation generation.
+- `scitech-tutorial-slides`: standalone HTML slide generation for science and technology tutorials.
 
 ## Skill Directory Convention
 

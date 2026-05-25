@@ -1,0 +1,6 @@
+{
+  "name": "Financial Risk Terms",
+  "summary": "Explains decisioning, indicators, rules, models, lists, backtesting, and frontend module mapping in financial risk-control systems.",
+  "description": "A domain glossary and troubleshooting helper for financial anti-fraud and risk-control platforms, covering indicator workflows, decision-engine concepts, module ownership, frontend repositories, URL prefixes, and API prefixes.",
+  "keywords": ["financial risk", "anti-fraud", "indicators", "decision engine", "rules", "backtesting"]
+}

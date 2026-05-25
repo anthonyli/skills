@@ -1,0 +1,6 @@
+{
+  "name": "科技教程幻灯片",
+  "summary": "把主题、Markdown、文章或笔记转换成深色未来科技教程风格的独立 HTML 幻灯片。",
+  "description": "面向课程、技术科普、知识讲解和录屏场景，生成 16:9 的单文件 HTML slide deck，并在用户要求时嵌入中文讲稿、旁白稿或 speaker notes。",
+  "keywords": ["教程", "幻灯片", "HTML", "课程", "科技风"]
+}

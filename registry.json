@@ -9,20 +9,52 @@
   },
   "skills": [
     {
-      "id": "example-skill",
-      "name": "Example Skill",
-      "path": "skills/example-skill",
+      "id": "financial-risk-terms",
+      "name": "Financial Risk Terms",
+      "path": "skills/financial-risk-terms",
       "entry": "SKILL.md",
       "metadata": "skill.json",
       "summary": {
-        "zh-CN": "一个示例技能，用来展示仓库约定和多语言元数据。",
-        "en": "An example skill that demonstrates repository conventions and multilingual metadata.",
-        "ja": "リポジトリ規約と多言語メタデータを示すサンプルスキルです。",
-        "ko": "저장소 규칙과 다국어 메타데이터를 보여주는 예시 skill입니다."
+        "zh-CN": "解释金融风控系统中的决策、指标、规则、模型、名单、回测和前端模块映射。",
+        "en": "Explains decisioning, indicators, rules, models, lists, backtesting, and frontend module mapping in financial risk-control systems.",
+        "ja": "金融リスク管理システムにおける意思決定、指標、ルール、モデル、リスト、バックテスト、フロントエンドモジュール対応を説明します。",
+        "ko": "금융 리스크 관리 시스템의 의사결정, 지표, 규칙, 모델, 목록, 백테스트, 프런트엔드 모듈 매핑을 설명합니다."
       },
-      "tags": ["template", "example"],
+      "tags": ["finance", "risk-control", "anti-fraud", "decision-engine", "glossary"],
       "platforms": ["claude", "codex", "cursor", "generic-agent"],
-      "status": "template"
+      "status": "stable"
+    },
+    {
+      "id": "futuristic-tech-slides",
+      "name": "Futuristic Tech Slides",
+      "path": "skills/futuristic-tech-slides",
+      "entry": "SKILL.md",
+      "metadata": "skill.json",
+      "summary": {
+        "zh-CN": "生成具有未来科技感、霓虹动效、粒子背景和 3D 交互的高端 HTML 演示文稿。",
+        "en": "Generates high-end futuristic HTML presentations with neon effects, particles, 3D interactions, and rich animation.",
+        "ja": "ネオン演出、パーティクル背景、3D インタラクション、豊かなアニメーションを備えた未来的な HTML プレゼンテーションを生成します。",
+        "ko": "네온 효과, 파티클 배경, 3D 상호작용, 풍부한 애니메이션을 갖춘 미래형 HTML 프레젠테이션을 생성합니다."
+      },
+      "tags": ["slides", "html", "futuristic", "animation", "presentation"],
+      "platforms": ["claude", "codex", "cursor", "generic-agent"],
+      "status": "stable"
+    },
+    {
+      "id": "scitech-tutorial-slides",
+      "name": "Scitech Tutorial Slides",
+      "path": "skills/scitech-tutorial-slides",
+      "entry": "SKILL.md",
+      "metadata": "skill.json",
+      "summary": {
+        "zh-CN": "把主题、Markdown、文章或笔记转换成深色未来科技教程风格的独立 HTML 幻灯片。",
+        "en": "Turns topics, Markdown, articles, or notes into standalone dark futuristic tutorial-style HTML slide decks.",
+        "ja": "トピック、Markdown、記事、ノートを、ダークで未来的なチュートリアル風の単体 HTML スライドに変換します。",
+        "ko": "주제, Markdown, 글, 노트를 어두운 미래형 튜토리얼 스타일의 독립 HTML 슬라이드 덱으로 변환합니다."
+      },
+      "tags": ["slides", "tutorial", "html", "courseware", "education"],
+      "platforms": ["claude", "codex", "cursor", "generic-agent"],
+      "status": "stable"
     }
   ]
 }

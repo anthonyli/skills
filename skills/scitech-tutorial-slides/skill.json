@@ -1,0 +1,29 @@
+{
+  "id": "scitech-tutorial-slides",
+  "name": "Scitech Tutorial Slides",
+  "version": "0.1.0",
+  "status": "stable",
+  "entry": "SKILL.md",
+  "license": "MIT",
+  "author": {
+    "name": "Anthony Li",
+    "url": "https://github.com/anthonyli"
+  },
+  "summary": {
+    "zh-CN": "把主题、Markdown、文章或笔记转换成深色未来科技教程风格的独立 HTML 幻灯片。",
+    "en": "Turns topics, Markdown, articles, or notes into standalone dark futuristic tutorial-style HTML slide decks.",
+    "ja": "トピック、Markdown、記事、ノートを、ダークで未来的なチュートリアル風の単体 HTML スライドに変換します。",
+    "ko": "주제, Markdown, 글, 노트를 어두운 미래형 튜토리얼 스타일의 독립 HTML 슬라이드 덱으로 변환합니다."
+  },
+  "tags": ["slides", "tutorial", "html", "courseware", "education"],
+  "platforms": ["claude", "codex", "cursor", "generic-agent"],
+  "compatibility": {
+    "requiresTools": [],
+    "requiresNetwork": false,
+    "requiresFilesystem": true
+  },
+  "i18n": {
+    "defaultLocale": "zh-CN",
+    "locales": ["zh-CN", "en", "ja", "ko"]
+  }
+}

@@ -27,7 +27,9 @@
 ├── templates/
 │   └── skill-template/
 ├── skills/
-│   └── example-skill/
+│   ├── financial-risk-terms/
+│   ├── futuristic-tech-slides/
+│   └── scitech-tutorial-slides/
 └── docs/
     ├── publishing.md
     ├── platforms.md
@@ -57,6 +59,12 @@
    ```
 
 4. 提交并推送到 GitHub。
+
+## 当前 Skills
+
+- `financial-risk-terms`：金融风控术语、模块边界、指标/规则/决策关系和前端映射。
+- `futuristic-tech-slides`：未来科技风格的高端 HTML 演示文稿生成。
+- `scitech-tutorial-slides`：科技教程风格的独立 HTML 幻灯片生成。
 
 ## Skill 目录约定
 

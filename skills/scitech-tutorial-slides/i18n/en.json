@@ -1,0 +1,6 @@
+{
+  "name": "Scitech Tutorial Slides",
+  "summary": "Turns topics, Markdown, articles, or notes into standalone dark futuristic tutorial-style HTML slide decks.",
+  "description": "A slide-generation skill for courses, technical explainers, knowledge sharing, and screen-recorded lessons. It produces 16:9 standalone HTML decks and can embed Chinese scripts, voiceover copy, or speaker notes when requested.",
+  "keywords": ["tutorial", "slides", "HTML", "courseware", "science tech"]
+}

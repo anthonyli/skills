@@ -1,6 +1,0 @@
-{
-  "name": "예시 Skill",
-  "summary": "저장소 규칙과 다국어 메타데이터를 보여주는 예시 skill입니다.",
-  "description": "이 skill은 SKILL.md, skill.json, i18n 문구가 함께 작동하는 방식을 보여 주며 여러 플랫폼에서 이해하기 쉬운 skill을 게시하는 데 도움을 줍니다.",
-  "keywords": ["예시", "템플릿", "다국어"]
-}

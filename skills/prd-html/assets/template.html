@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>原型标题</title>
+  <!-- CDN Resources -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/tntd@3.1.8/dist/tntd.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tntd@3.1.8/dist/tntd.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@tntd/layout@0.1.4/umd/tntd-layout.min.css" />
+  <script src="https://unpkg.com/@tntd/layout@0.1.4/umd/tntd-layout.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@tntd/reference@1.2.1/umd/tntd-reference.min.css" />
+  <script src="https://unpkg.com/@tntd/reference@1.2.1/umd/tntd-reference.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/@tddc/tree-view@2.1.3/umd/tree-view.min.css" />
+  <script src="https://unpkg.com/@tddc/tree-view@2.1.3/umd/tree-view.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@tntd/monaco-editor@1.1.2/umd/tntd-monaco.min.css" />
+  <script src="https://unpkg.com/@tntd/monaco-editor@1.1.2/umd/tntd-monaco.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@tntd/assign-modal@1.1.4/umd/assign-modal.min.css" />
+  <script src="https://unpkg.com/@tntd/assign-modal@1.1.4/umd/assign-modal.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/@tntd/weightmode-editor@0.0.9/umd/weightmode-editor.min.css" />
+  <script src="https://unpkg.com/@tntd/weightmode-editor@0.0.9/umd/weightmode-editor.min.js"></script>
+  <script src="https://g.alicdn.com/code/lib/echarts/5.4.3/echarts.min.js"></script>
+
+
+  <style>
+    body {
+      margin: 0;
+      background: #f0f2f5;
+    }
+
+    /* Prototype annotations: only the numbered marker is highlighted. */
+    .proto-desc {
+      transition: all 0.2s ease;
+      border-radius: 6px;
+      border: 1px solid #fde68a;
+      background-color: #fffbeb;
+    }
+
+    .proto-desc:hover {
+      background-color: #fef3c7;
+      border-color: #f59e0b;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+    }
+
+    .proto-desc.active-highlight {
+      background-color: #fde68a;
+      border-color: #d97706;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+    }
+
+    .prd-annotation-target {
+      position: relative;
+      display: inline-block;
+    }
+
+    .prd-annotation-target.prd-annotation-block {
+      display: block;
+    }
+
+    .proto-annotation-trigger {
+      position: absolute;
+      top: 50%;
+      right: -12px;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #ff4fa3;
+      color: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(255, 79, 163, 0.35);
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(0, -50%);
+      transition: all 0.2s ease;
+      z-index: 30;
+    }
+
+    .prd-annotation-target:hover .proto-annotation-trigger,
+    .prd-annotation-target.active-highlight .proto-annotation-trigger,
+    .proto-annotation-trigger:focus {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(4px, -50%) scale(1.04);
+    }
+
+    .proto-annotation-card {
+      position: fixed;
+      z-index: 9999;
+      width: min(300px, calc(100vw - 24px));
+      padding: 12px;
+    }
+
+    .proto-annotation-card-title {
+      margin-bottom: 6px;
+      color: #1f2937;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .proto-annotation-card-content {
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    #prd-annotation-connections {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    .connection-line {
+      fill: none;
+      stroke: #165DFF;
+      stroke-width: 2;
+      opacity: 0.6;
+      transition: all 0.2s ease;
+    }
+
+    .connection-line.active {
+      stroke-width: 3;
+      opacity: 1;
+    }
+
+    .connection-label {
+      fill: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    .connection-label-bg {
+      fill: #ff4fa3;
+    }
+
+    .ant-menu .ant-menu-submenu-open>.ant-menu-submenu-title,
+    .ant-menu .ant-menu-submenu-selected>.ant-menu-submenu-title {
+      font-weight: 600;
+    }
+
+    .ant-menu .ant-menu-item.ant-menu-item-selected,
+    .ant-menu .ant-menu-item.ant-menu-item-selected:hover,
+    .ant-menu .ant-menu-item.ant-menu-item-selected.ant-menu-item-active {
+      background-color: #126bfb !important;
+      color: #fff !important;
+    }
+
+    .ant-menu .ant-menu-item.ant-menu-item-selected a,
+    .ant-menu .ant-menu-item.ant-menu-item-selected a:hover,
+    .ant-menu .ant-menu-item.ant-menu-item-selected *,
+    .ant-menu .ant-menu-item.ant-menu-item-selected:hover * {
+      color: #fff !important;
+    }
+
+    /* Page-specific styles */
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React
+
+    const {
+      TableContainer,
+      TabsContainer,
+      PageContainer,
+      Layout, Menu, Button, Input, Select, Table, Card, Tag,
+      Modal, Drawer, Tabs, TntdForm, Row, Col, message,
+      Popconfirm, DatePicker, Typography, Badge, Descriptions,
+      Spin, Tooltip, Dropdown, Steps, Pagination, Switch, TntdAction,
+      Checkbox, Radio, Upload, Divider, Breadcrumb, InputNumber, QueryListScene,
+      HandleIcon,Icon
+    } = tntd
+
+    const { TNTLayout } = tntdLayout;
+    const { AssignModal } = assignModal
+    const { TreeView } = treeView
+    const {
+      ReferenceDrawer,
+      ReferenceBatchCheck,
+      ReferenceCheck
+    } = tntdReference;
+    const { default:BaseMonacoEditor, FormulaEditor, DiffEditor } = TntdMonaco;
+    const { QueryForm, QueryList, Field, createActions, Toolbar } = QueryListScene;
+
+    const { Header, Content, Sider } = Layout
+
+    // ==================== Prototype Annotation Helpers ====================
+    // Usage:
+    // window.PRD_ANNOTATIONS = {
+    //   createButton: { title: '新增', content: '点击后打开新增弹窗。' },
+    // }
+    // <span className="prd-annotation-target" data-annotation-id="createButton" data-annotation-label="1">
+    //   ...
+    //   <button type="button" className="proto-annotation-trigger" onClick={(event) => showPrdAnnotation(event, 'createButton')}>1</button>
+    // </span>
+    window.PRD_ANNOTATIONS = window.PRD_ANNOTATIONS || {}
+
+    function closePrdAnnotation() {
+      document.querySelectorAll('.proto-annotation-card, #prd-annotation-connections')
+        .forEach((el) => el.remove())
+      document.querySelectorAll('.prd-annotation-target.active-highlight')
+        .forEach((el) => el.classList.remove('active-highlight'))
+    }
+
+    function showPrdAnnotation(event, id) {
+      event.preventDefault()
+      event.stopPropagation()
+      const target = event.currentTarget.closest('.prd-annotation-target')
+      const annotation = window.PRD_ANNOTATIONS && window.PRD_ANNOTATIONS[id]
+      if (!annotation || !target) return
+      const wasActive = target.classList.contains('active-highlight')
+      closePrdAnnotation()
+      if (wasActive) return
+      target.classList.add('active-highlight')
+      const label = target.getAttribute('data-annotation-label') || annotation.label || ''
+      const card = document.createElement('div')
+      card.className = 'proto-desc proto-annotation-card active-highlight'
+      card.setAttribute('data-proto-id', label)
+      card.innerHTML = `
+        <div class="proto-annotation-card-title">${label ? label + '. ' : ''}${annotation.title}</div>
+        <div class="proto-annotation-card-content">${annotation.content}</div>
+      `
+      card.addEventListener('click', (e) => e.stopPropagation())
+      document.body.appendChild(card)
+      positionPrdAnnotationCard(target, card)
+      drawPrdAnnotationConnection(target, card, label)
+    }
+
+    function positionPrdAnnotationCard(target, card) {
+      const rect = target.getBoundingClientRect()
+      const width = card.offsetWidth
+      const height = card.offsetHeight
+      const margin = 12
+      const gap = 32
+      const centerTop = rect.top + rect.height / 2 - height / 2
+      const centerLeft = rect.left + rect.width / 2 - width / 2
+      const candidates = [
+        { placement: 'right', top: centerTop, left: rect.right + gap },
+        { placement: 'left', top: centerTop, left: rect.left - width - gap },
+        { placement: 'bottom', top: rect.bottom + gap, left: centerLeft },
+        { placement: 'top', top: rect.top - height - gap, left: centerLeft },
+      ]
+      const fits = (item) => (
+        item.left >= margin &&
+        item.top >= margin &&
+        item.left + width <= window.innerWidth - margin &&
+        item.top + height <= window.innerHeight - margin
+      )
+      const overflow = (item) => {
+        const leftOverflow = Math.max(margin - item.left, 0)
+        const topOverflow = Math.max(margin - item.top, 0)
+        const rightOverflow = Math.max(item.left + width - (window.innerWidth - margin), 0)
+        const bottomOverflow = Math.max(item.top + height - (window.innerHeight - margin), 0)
+        return leftOverflow + topOverflow + rightOverflow + bottomOverflow
+      }
+      const selected = candidates.find(fits) || candidates.slice().sort((a, b) => overflow(a) - overflow(b))[0]
+      const left = Math.max(margin, Math.min(selected.left, window.innerWidth - width - margin))
+      const top = Math.max(margin, Math.min(selected.top, window.innerHeight - height - margin))
+      card.dataset.placement = selected.placement
+      card.style.left = left + 'px'
+      card.style.top = top + 'px'
+    }
+
+    function drawPrdAnnotationConnection(target, card, label) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      svg.setAttribute('id', 'prd-annotation-connections')
+      const targetRect = target.getBoundingClientRect()
+      const cardRect = card.getBoundingClientRect()
+      const targetIsLeft = targetRect.left < cardRect.left
+      const x1 = targetIsLeft ? targetRect.right : targetRect.left
+      const y1 = targetRect.top + targetRect.height / 2
+      const x2 = targetIsLeft ? cardRect.left : cardRect.right
+      const y2 = cardRect.top + cardRect.height / 2
+      const cp1x = x1 + (x2 - x1) * 0.5
+      const cp2x = cp1x
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      path.setAttribute('d', `M ${x1} ${y1} C ${cp1x} ${y1}, ${cp2x} ${y2}, ${x2} ${y2}`)
+      path.setAttribute('class', 'connection-line active')
+      svg.appendChild(path)
+      if (label) {
+        const midX = (x1 + x2) / 2
+        const midY = (y1 + y2) / 2
+        const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+        bg.setAttribute('cx', midX)
+        bg.setAttribute('cy', midY)
+        bg.setAttribute('r', 11)
+        bg.setAttribute('class', 'connection-label-bg')
+        svg.appendChild(bg)
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+        text.setAttribute('x', midX)
+        text.setAttribute('y', midY)
+        text.setAttribute('dy', '0.05em')
+        text.setAttribute('class', 'connection-label')
+        text.textContent = label
+        svg.appendChild(text)
+      }
+      document.body.appendChild(svg)
+    }
+
+    document.addEventListener('click', closePrdAnnotation)
+    window.addEventListener('resize', closePrdAnnotation)
+    window.addEventListener('scroll', closePrdAnnotation, true)
+
+    // ==================== Local HTML Menu Helpers ====================
+    function getMenuFileFromHref(href) {
+      if (!href) return ''
+      try {
+        const url = new URL(href, window.location.href)
+        return (url.pathname.split('/').pop() || '').replace(/^\//, '')
+      } catch (error) {
+        return href.split(/[?#]/)[0].replace(/^\.\//, '').split('/').pop() || ''
+      }
+    }
+
+    function findMenuLinkByFile(fileName) {
+      if (!fileName) return null
+      return Array.from(document.querySelectorAll('.ant-menu a[href], .ant-menu-item a[href]'))
+        .find((link) => getMenuFileFromHref(link.getAttribute('href')) === fileName || getMenuFileFromHref(link.href) === fileName)
+    }
+
+    function forceOpenSubmenuByTitle(groupName) {
+      if (!groupName) return null
+      const title = Array.from(document.querySelectorAll('.ant-menu-submenu-title'))
+        .find((node) => node.textContent.trim().includes(groupName))
+      const submenu = title && title.closest('li.ant-menu-submenu')
+      if (!submenu) return null
+      if (!submenu.classList.contains('ant-menu-submenu-open')) {
+        title.click()
+      }
+      submenu.classList.add('ant-menu-submenu-open', 'ant-menu-submenu-selected')
+      title.style.fontWeight = '600'
+      Array.from(submenu.children)
+        .filter((node) => node.tagName === 'UL' || node.classList.contains('ant-menu'))
+        .forEach((node) => {
+          node.style.display = 'block'
+          node.style.height = 'auto'
+          node.style.overflow = 'visible'
+        })
+      return submenu
+    }
+
+    function markCurrentMenuLink(link) {
+      if (!link) return
+      const menuItem = link.closest('li.ant-menu-item')
+      if (menuItem) {
+        menuItem.classList.add('ant-menu-item-selected')
+      }
+      const parentSubmenu = link.closest('li.ant-menu-submenu')
+      if (parentSubmenu) {
+        parentSubmenu.classList.add('ant-menu-submenu-open', 'ant-menu-submenu-selected')
+        const title = parentSubmenu.querySelector('.ant-menu-submenu-title')
+        if (title) title.style.fontWeight = '600'
+      }
+    }
+
+    function syncCurrentMenuState(currentMenuFile, currentMenuGroup) {
+      const fileName = currentMenuFile || ''
+      const groupName = currentMenuGroup || ''
+      const sync = () => {
+        if (groupName) forceOpenSubmenuByTitle(groupName)
+        const link = findMenuLinkByFile(fileName)
+        if (link) markCurrentMenuLink(link)
+      }
+      setTimeout(sync, 0)
+      setTimeout(sync, 120)
+      setTimeout(sync, 300)
+    }
+
+    function bindLocalHtmlMenuNavigation(allowedFiles) {
+      const files = Array.isArray(allowedFiles) ? allowedFiles : []
+      document.addEventListener('click', (event) => {
+        const link = event.target.closest && event.target.closest('a[href]')
+        if (!link) return
+        const fileName = getMenuFileFromHref(link.getAttribute('href'))
+        if (!fileName.endsWith('.html')) return
+        if (files.length && !files.includes(fileName)) return
+        event.preventDefault()
+        event.stopPropagation()
+        window.location.href = new URL(fileName, window.location.href).href
+      }, true)
+    }
+
+    // ==================== Mock Data ====================
+    
+    // 单页面场景：保留一个叶子菜单即可。
+    // 多菜单/多路由场景：所有生成的 HTML 文件必须使用同一份 MOCK_MENUS。
+    // 每个叶子菜单 path 使用同目录相对路径，例如 './customer-list.html'，
+    // 确保产品经理直接双击 HTML 或用 file:// 打开时也能在菜单间跳转。
+    const MOCK_MENUS = [
+        {
+            id: '2c537ab73d19411ca19c81ea677a748c',
+            groupIcon: 'tongji',
+            groupName: '系统运行大盘',
+            code: 'TD0101',
+            enName: 'runningdasborb',
+            children: [
+                {
+                    menuName: '系统大盘',
+                    menuUuid: '69416dd480314eb0a645091f592523c7',
+                    code: 'SystemDashboard',
+                    path: '/noah/dashboard/system',
+                    enName: 'System Dashboard',
+                }
+            ]
+        }
+    ]
+
+    const MOCK_USER_INFO = {
+        account: "admin",
+        apps: [
+            {
+                appType: "all",
+                createdBy: "admin",
+                displayName: "testinterface",
+                gmtCreate: 1524464036000,
+                gmtModified: 1524632742000,
+                name: "interface_auto",
+                partnerCode: "kratos",
+                secretKey: "a4c45240279542619ca6e7730a3f3dad",
+                signForSwitch: false,
+                signForWrite: false,
+                updatedBy: "admin",
+                uuid: "d9ed07ed4dc14c4fb33470186135d36a",
+            }
+        ],
+        avatar: "male1",
+        lang: "cn",
+        layout: "default",
+        orgName: "同盾科技",
+        orgUuid: "a8202aea546f48979754bdd45c471b08",
+        roleUuids: '["ee8dbc99831b4a9cb17578b51bbb09e0"]',
+        roles: [
+            {
+                code: "TongDun",
+                name: "超级管理员",
+                orgUuid: "a8202aea546f48979754bdd45c471b08",
+                type: "default",
+                uuid: "ee8dbc99831b4a9cb17578b51bbb09e0",
+            },
+        ],
+        userName: "超级管理员",
+        uuid: "c693e0ec0a2e4bf8b71eef8152d88a29",
+    }
+
+    const MOCK_APP_LIST = [
+        {
+            "key": "",
+            "name": "全部渠道"
+        },
+        {
+            "id": 3,
+            "uuid": "faghgfyaiuLhgfyugesyi123432hsdf",
+            "name": "initApp",
+            "displayName": "initApp",
+            "enDisplayName": "initApp",
+            "partnerCode": "kratos",
+            "have": true,
+            "description": "初始应用",
+            "key": "init"
+        }
+    ]
+
+    const MOCK_ORG_LIST = {
+        "id": 25,
+        "uuid": "a8202aea546f48979754bdd45c471b08",
+        "code": "TongDun",
+        "level": 1,
+        "name": "TongDun",
+        "enName": "TongDun",
+        "orgAttribute": 2,
+        "children": [
+            {
+                "id": 4,
+                "uuid": "480b52b921624596910e345e366ca4f4",
+                "code": "test0115",
+                "level": 2,
+                "parentUuid": "a8202aea546f48979754bdd45c471b08",
+                "name": "授权机构 A",
+                "orgAttribute": 2,
+                "children": [
+                    {
+                        "id": 7,
+                        "uuid": "b15a1e482d3f4fc7a53eaaa2c1042fd3",
+                        "code": "test011504",
+                        "level": 3,
+                        "parentUuid": "480b52b921624596910e345e366ca4f4",
+                        "name": "授权机构 A_职能部门",
+                        "orgAttribute": 1,
+                        "children": [],
+                        "title": "授权机构 A_职能部门",
+                        "value": "b15a1e482d3f4fc7a53eaaa2c1042fd3",
+                        "key": "b15a1e482d3f4fc7a53eaaa2c1042fd3"
+                    }
+                ],
+                "title": "授权机构 A",
+                "value": "480b52b921624596910e345e366ca4f4",
+                "key": "480b52b921624596910e345e366ca4f4"
+            },
+        ],
+        "title": "TongDun",
+        "value": "a8202aea546f48979754bdd45c471b08",
+        "key": "a8202aea546f48979754bdd45c471b08"
+    }
+
+    // App Component - 根据页面场景选择容器
+
+    // 容器选择决策树：
+    // - 包含「详情/查看/展示」→ PageContainer
+    // - 包含「切换/多状态/Tabs/多个列表」→ TabsContainer
+    // - 默认（查询列表/表格/数据列表）→ TableContainer
+
+    // ⚠️ 重要规则：
+    // 1. 容器是 HOC，必须 const App = XxxContainer((props) => { ... })
+    // 2. actions 和 query 必须在 App 组件内部创建，禁止在外部创建
+    // 3. TabsContainer 场景：每个 Tab 的 QueryListScene 必须独立创建 actions 和 query
+    // 4. 禁止使用 <QueryListScene {...props} /> 空透传
+    // 5. 多菜单/多路由场景：每个 HTML 文件只实现当前菜单功能的 App，
+    //    菜单之间通过 MOCK_MENUS.children[].path 跳转到对应 HTML 文件
+    // 6. 多菜单/多路由场景：为每个文件声明 CURRENT_MENU_FILE / CURRENT_MENU_GROUP / CURRENT_MENU_PATH，
+    //    传入 CURRENT_LOCATION；渲染后调用 syncCurrentMenuState(CURRENT_MENU_FILE, CURRENT_MENU_GROUP)，
+    //    先自动展开当前菜单父级，再高亮当前菜单
+    // 7. 当前菜单选中态使用 #126bfb 蓝底+白字，父级菜单加粗；hover 未跳转菜单时不改变当前选中态
+    // 8. 多 HTML 本地文件跳转调用 bindLocalHtmlMenuNavigation(['customer-list.html', 'risk-rule.html'])
+
+    // 在此处根据用户需求生成 App 组件
+    // 参考 references/tntd-container.md 获取各容器的完整示例
+
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <TNTLayout
+        needAuth={false}
+        supportSetTheme={false}
+        name="prd 产品"
+        type="enterprise"
+        isDev={true}
+        localeCode="cn"
+        location={window.location}
+        menus={MOCK_MENUS}
+        userInfo={MOCK_USER_INFO}
+      >
+        <App />
+      </TNTLayout>
+    )
+
+    // 多菜单/多路由生成时取消注释，并传入当前页面对应的变量：
+    // syncCurrentMenuState(CURRENT_MENU_FILE, CURRENT_MENU_GROUP)
+    // bindLocalHtmlMenuNavigation(['customer-list.html', 'risk-rule.html'])
+  </script>
+</body>
+
+</html>
